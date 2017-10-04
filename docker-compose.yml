@@ -1,0 +1,8 @@
+version: '3'
+services:
+    hello:
+        image: hello:latest
+        ports:
+            - 4000:80
+        volumes:
+            - /Users/apple/Documents/CodingGround/flask/hello_world:/app
