@@ -1,17 +1,9 @@
-{% extends 'bootstrap/base.html' %}
+{% extends 'base.html' %}
 {% import 'macros.html' as macros %}
 
 {% block title %}Hello World{% endblock %}
 
-{% block navbar %}
-    <nav class="navbar navbar-inverse" role="navigation">
-        <div class="container">
-            <a class="navbar-brand" href="#">Aviation Reports</a>
-        </div>
-    </nav>
-{% endblock %}
-
-{% block content %}
+{% block page_content %}
     <div class="container">
         <h1>Hello World!</h1>
         <table class="table table-hover">

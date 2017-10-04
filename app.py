@@ -22,5 +22,9 @@ def index():
 #        resp += ("["+items['item']+"] ")+(items['percentage_growth_2001_02_to_2015_16_'])+"<br>"
     return render_template('index.html', items=data['records'])
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html')
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
