@@ -1,10 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 import requests
 import json
 import io
+from flask_wtf import Form
+from wtforms import StringField, SubmitField
+from wtforms.validators import Required, Length
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "secret!"
 bootstrap = Bootstrap(app)
 
 params = {
@@ -13,14 +17,28 @@ params = {
          }
 url = 'https://api.data.gov.in/resource/c500fb5d-4805-4d87-a806-4d99f761bb8d'
 
-@app.route("/")
+class LoginForm(Form):
+    name = StringField("User", validators=[Required(),
+                                           Length(1,16)])
+    submit = SubmitField("Login")
+
+@app.route("/", methods=['GET', 'POST'])
 def index():
+    form = LoginForm()
+    name = None
+    if(form.validate_on_submit()):
+        name = form.name.data
+        form.name.data = ''
+        return redirect('/report/'+name)
+    return render_template('index.html', form=form)
+
+@app.route("/report/<name>")
+def report(name):
     data = requests.get(url=url, params=params)
     data = json.loads(data.text)
     resp = ''
-#    for items in data['records']:
-#        resp += ("["+items['item']+"] ")+(items['percentage_growth_2001_02_to_2015_16_'])+"<br>"
-    return render_template('index.html', items=data['records'])
+    return render_template('report.html', items=data['records'], name=name)
+
 
 @app.errorhandler(404)
 def not_found(e):

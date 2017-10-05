@@ -1,22 +1,19 @@
 {% extends 'base.html' %}
 {% import 'macros.html' as macros %}
 
-{% block title %}Hello World{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block page_content %}
     <div class="container">
-        <h1>Hello World!</h1>
-        <table class="table table-hover">
-            <tr>
-                <th>Item</th>
-                <th>Percentage Growth</th>
-            </tr>
-            {% for item in items %}
-                {{ macros.row(item['item'],
-                              item['percentage_growth_2001_02_to_2015_16_']
-                              ) }}
+        <form method="POST" action=""
+            {{ form.name.label }} {{ form.name(size=16) }}
+            {% for error in form.name.errors %}
+                {{ error }}
             {% endfor %}
-        </table>
+            <br>
+            {{ form.submit() }}
+            {{ form.hidden_tag() }}
+        </form>
     </div>
 {% endblock %}
 
