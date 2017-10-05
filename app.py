@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 import requests
 import json
 import io
-from flask_wtf import Form
+from flask_wtf import FlaskForm as Form
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required, Length
 

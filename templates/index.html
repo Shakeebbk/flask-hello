@@ -1,18 +1,13 @@
 {% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 {% import 'macros.html' as macros %}
 
 {% block title %}Login{% endblock %}
 
 {% block page_content %}
     <div class="container">
-        <form method="POST" action=""
-            {{ form.name.label }} {{ form.name(size=16) }}
-            {% for error in form.name.errors %}
-                {{ error }}
-            {% endfor %}
-            <br>
-            {{ form.submit() }}
-            {{ form.hidden_tag() }}
+        <form method="POST" action="">
+            {{ wtf.quick_form(form) }}
         </form>
     </div>
 {% endblock %}
